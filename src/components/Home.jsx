@@ -63,7 +63,7 @@ const Home = () => {
                                             <img
                                                 src={
                                                     product.image?.[0]
-                                                        ? `http://localhost:3000/${product.image[0]}`
+                                                        ? `${window.location.origin}${product.image[0]}`
                                                         : "https://via.placeholder.com/300x300.png?text=No+Image"
                                                 }
                                                 alt={product.name}

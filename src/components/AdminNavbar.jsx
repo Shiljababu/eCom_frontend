@@ -19,7 +19,7 @@ const AdminNavbar = () => {
       <div className="container mx-auto flex justify-between items-center px-6">
         <h1 className="text-xl font-bold">Admin Dashboard</h1>
         <nav className="flex space-x-20">
-          <Link to="/admin/usersList" className="hover:text-yellow-400">Users</Link>
+          <Link to="/admin/getUsers" className="hover:text-yellow-400">Users</Link>
           <Link to="/admin/products" className="hover:text-yellow-400">Products</Link>
           <Link to="/admin/categories" className="hover:text-primary">
             Categories

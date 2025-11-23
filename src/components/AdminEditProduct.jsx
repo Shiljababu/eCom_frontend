@@ -35,7 +35,7 @@ const AdminEditProduct = () => {
             price: product.price,
             image: null,
           });
-          setPreviewImage(`http://localhost:3000/${product.image[0]}`);
+          setPreviewImage(`${window.location.origin}${product.image[0]}`);
         }
       } catch (error) {
         console.error("Error fetching product:", error);

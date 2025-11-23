@@ -105,7 +105,7 @@ const handlePlaceOrder = async () => {
                       <img
                         src={
                           image?.[0]
-                            ? `http://localhost:3000/${image[0]}`
+                            ? `${window.location.origin}${image[0]}`
                             : "https://placehold.co/100x100"
                         }
                         alt={name}

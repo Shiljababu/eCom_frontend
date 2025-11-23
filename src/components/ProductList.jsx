@@ -42,7 +42,7 @@ const ProductList = () => {
                         <img
                           src={
                             product.image?.[0]
-                              ? `http://localhost:3000/${product.image[0]}`
+                              ? `${window.location.origin}${product.image[0]}`
                               : "https://via.placeholder.com/100"
                           }
                           alt={product.name}

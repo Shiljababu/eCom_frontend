@@ -18,6 +18,8 @@ import AdminEditProduct from "./components/AdminEditProduct";
 import AddProduct from "./components/AddProduct";
 import CategoryList from "./components/CategoryList";
 import AdminOrdersList from "./components/OrdersList";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminUserList from "./components/UsersList";
 
 
 function App() {
@@ -35,13 +37,20 @@ function App() {
         <Route path="/login" element={<><Auth /></>} />
         <Route path="/" element={<Landing />} />
         <Route path="/getproduct/:id" element={<ProductDetails />} />
-        <Route path="/getAccount" element={<UserDetails />} />
-        <Route path="/update" element={<UpdateProfile />} />
-        <Route path="/viewCart" element={<CartPage />} />
-        <Route path="/orders" element={<UserOrders />} />
+        <Route path="/getAccount" element={<ProtectedRoute><UserDetails /></ProtectedRoute>} />
+        <Route path="/update" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
+        <Route path="/viewCart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><UserOrders /></ProtectedRoute>} />
 
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/admin_landing" element={<AdminLanding />} />
+        <Route path="/admin/getUsers" element={
+          <>
+          <AdminNavbar/>
+          <AdminUserList/>
+          </>
+        }
+        />
         <Route path="/admin/products" element={
             <>
               <AdminNavbar />
@@ -51,9 +60,8 @@ function App() {
             </>
           }
         />
-        <Route
-  path="/admin/products/edit/:id"
-  element={
+        <Route path="/admin/products/edit/:id" 
+        element={
     <>
       <AdminNavbar />
       <AdminEditProduct />

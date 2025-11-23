@@ -22,6 +22,9 @@ const AuthContextApi = ({ children }) => {
           setIsLoggedIn(false)
         }
       } catch (err) {
+        if(err.response && err.response.status === 403){
+          alert("Your account has been disabled by the Admin.")
+        }
         setUser(null)
         setIsLoggedIn(false)
       }
