@@ -83,7 +83,6 @@ const AdminEditProduct = () => {
         <h1 className="text-2xl font-bold mb-6 text-gray-800 text-center">Edit Product</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
           <div>
             <label className="block text-gray-700 mb-1 font-medium">Product Name</label>
             <input
@@ -95,7 +94,6 @@ const AdminEditProduct = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-gray-700 mb-1 font-medium">Description</label>
             <textarea
@@ -107,7 +105,6 @@ const AdminEditProduct = () => {
             />
           </div>
 
-          {/* Size, Color, Brand */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-gray-700 mb-1 font-medium">Size</label>
@@ -138,7 +135,6 @@ const AdminEditProduct = () => {
             </div>
           </div>
 
-          {/* Category + Price */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-700 mb-1 font-medium">Category</label>
@@ -160,7 +156,6 @@ const AdminEditProduct = () => {
             </div>
           </div>
 
-          {/* Image Upload */}
           <div>
             <label className="block text-gray-700 mb-1 font-medium">Product Image</label>
             {previewImage && (
@@ -178,7 +173,6 @@ const AdminEditProduct = () => {
             />
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-end space-x-3 pt-4">
             <button
               type="button"

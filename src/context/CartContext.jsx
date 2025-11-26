@@ -6,7 +6,6 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0);
 
-  //  Fetch cart count safely
   const fetchCartCount = async () => {
     try {
       const res = await getCartApi();

@@ -20,6 +20,9 @@ import CategoryList from "./components/CategoryList";
 import AdminOrdersList from "./components/OrdersList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminUserList from "./components/UsersList";
+import CategoryPage from "./pages/CategoryPage";
+import NotFound from "./pages/404";
+
 
 
 function App() {
@@ -41,7 +44,7 @@ function App() {
         <Route path="/update" element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
         <Route path="/viewCart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
         <Route path="/orders" element={<ProtectedRoute><UserOrders /></ProtectedRoute>} />
-
+        <Route path="/category/:id" element={<ProtectedRoute><CategoryPage /></ProtectedRoute>} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/admin_landing" element={<AdminLanding />} />
         <Route path="/admin/getUsers" element={
@@ -84,12 +87,15 @@ function App() {
 />
 <Route path="/admin/orders" element={<AdminOrdersList />} />
 
+      <Route path="*" element={<NotFound />} />
 
 
       </Routes>
 
       {!isAdminRoute && <Footer />}
+
     </>
+
   );
 }
 

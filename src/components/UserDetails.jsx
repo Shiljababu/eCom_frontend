@@ -69,7 +69,6 @@ const UserDetails = () => {
 
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100 mt-10">
-      {/* Header */}
       <div className="bg-linear-to-r from-amber-500 to-yellow-400 px-6 py-8 flex flex-col items-center text-white">
         <div className="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mb-4">
           <i className="ri-user-3-line text-5xl text-amber-600"></i>
@@ -80,7 +79,6 @@ const UserDetails = () => {
         <p className="text-sm text-amber-100 mt-1">Member since 2023</p>
       </div>
 
-      {/* Info */}
       <div className="px-8 py-6">
         <h3 className="text-xl font-semibold text-gray-800 border-b pb-3 mb-6">
           Profile Information
@@ -117,7 +115,6 @@ const UserDetails = () => {
         </dl>
       </div>
 
-      {/* Actions */}
       <div className="bg-gray-50 px-8 py-4 flex justify-end space-x-3 border-t">
         <Link to="/update">
           <button className="px-5 py-2 rounded-md bg-amber-500 text-white font-medium hover:bg-amber-600 transition">
@@ -132,7 +129,6 @@ const UserDetails = () => {
         </button>
       </div>
 
-      {/* Confirmation Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-light bg-light bg-light bg-white bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-xl p-6 shadow-lg max-w-sm text-center">

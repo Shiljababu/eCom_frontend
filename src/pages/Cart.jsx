@@ -64,7 +64,6 @@ const handlePlaceOrder = async () => {
   }
 };
 
-  //  Loading UI
   if (!cart)
     return (
       <div className="flex justify-center items-center h-screen text-gray-500">
@@ -81,7 +80,6 @@ const handlePlaceOrder = async () => {
       </h1>
 
       <div className="flex flex-col lg:flex-row items-start mt-8 gap-6">
-        {/*  Cart Table */}
         <div className="bg-white p-4 w-full lg:w-[800px] rounded-xl shadow-sm">
           <table className="w-full text-sm">
             <thead>
@@ -166,7 +164,6 @@ const handlePlaceOrder = async () => {
           </table>
         </div>
 
-        {/*  Cart Summary */}
         <div className="w-full lg:w-[400px] bg-white rounded-lg p-6 shadow-sm">
           <h2 className="text-xl font-semibold mb-4 text-gray-900">
             Cart Total

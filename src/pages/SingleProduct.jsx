@@ -57,7 +57,12 @@ const ProductDetails = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-6 md:p-10">
           <div className="flex flex-col items-center justify-center">
-            <div className="w-full h-[420px] overflow-hidden rounded-2xl shadow-md bg-gray-100">
+            <div className="w-full h-[420px] overflow-hidden rounded-2xl shadow-md bg-gray-100 relative">
+              {product.stock === 0 && (
+                <span className="absolute top-3 left-3 bg-red-600 text-white text-sm px-3 py-1 rounded-lg shadow">
+                  Out of Stock
+                </span>
+              )}
               <img
                 src={
                   product.image?.[0]
@@ -92,14 +97,19 @@ const ProductDetails = () => {
                 {product.description}
               </p>
 
-              {/* Buttons */}
               <div className="flex flex-wrap gap-4 mb-10">
                 <button
-                  onClick={() => setShowModal(true)}
-                  className="bg-amber-600 flex items-center gap-2 text-white px-7 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-all focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                  onClick={() => product.stock > 0 && setShowModal(true)}
+                  disabled={product.stock === 0}
+                  className={`flex items-center gap-2 px-7 py-3 rounded-lg font-semibold transition-all
+                  ${product.stock === 0
+                      ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                      : "bg-amber-600 text-white hover:bg-amber-700"
+                    }
+  `}
                 >
                   <i className="ri-shopping-cart-line text-lg"></i>
-                  Add to Cart
+                  {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
                 </button>
                 <button className="bg-gray-200 flex items-center gap-2 text-gray-800 px-7 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
                   <i className="ri-heart-line text-lg"></i>
@@ -108,7 +118,6 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Product Features */}
             <div className="border-t border-gray-200 pt-6">
               <h3 className="text-lg font-bold text-gray-900 mb-3 uppercase tracking-wide">
                 Key Features
@@ -123,6 +132,10 @@ const ProductDetails = () => {
                 <li>
                   <strong>Category:</strong>{" "}
                   {product.categoryId?.name || "Uncategorized"}
+                </li>
+                <li>
+                  <strong>Stock:</strong>{" "}
+                  {product.stock > 0 ? product.stock : "Out of stock"}
                 </li>
                 <li>
                   <strong>Available:</strong>{" "}

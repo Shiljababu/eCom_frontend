@@ -1,13 +1,28 @@
 import { useEffect, useState } from 'react'
 import Header from './Header'
 import { Link } from "react-router-dom"
-import { getAllProductsUsersApi } from '../service/allAPI'
+import { getAllCategoriesApi, getAllProductsUsersApi } from '../service/allAPI'
 
 const Home = () => {
     const [products, setProducts] = useState([])
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
         getProducts()
+        getCategories();
+
     }, [])
+    const getCategories = async () => {
+        try {
+            const res = await getAllCategoriesApi();
+            if (res.status === 200) {
+                setCategories(res.data.categories);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     const getProducts = async () => {
         try {
             const response = await getAllProductsUsersApi()
@@ -29,20 +44,23 @@ const Home = () => {
             <Header />
             <section className="py-16">
                 <div className="container mx-auto px-4">
-                    <div className="flex justify-between items-center mb-12">
-                        <h2 className="text-3xl font-bold">Featured Products</h2>
-                        <div className="flex space-x-1 px-1 py-1 bg-gray-100 rounded-full">
-                            <button className="px-4 py-1.5 bg-white text-gray-800 rounded-full shadow-sm text-sm font-medium whitespace-nowrap">
-                                All
-                            </button>
-                            <button className="px-4 py-1.5 text-gray-600 rounded-full text-sm font-medium hover:bg-white hover:shadow-sm transition whitespace-nowrap">
-                                New Arrivals
-                            </button>
-                            <button className="px-4 py-1.5 text-gray-600 rounded-full text-sm font-medium hover:bg-white hover:shadow-sm transition whitespace-nowrap">
-                                Best Sellers
-                            </button>
-                        </div>
+                    <div className="flex gap-3 overflow-x-auto py-4">
+                        {categories.length > 0 ? (
+                            categories.map((cat) => (
+                                <Link
+                                    key={cat._id}
+                                    to={`/category/${cat._id}`}
+                                    className="px-4 py-2 bg-gray-100 rounded-full text-gray-700 font-medium hover:bg-primary hover:text-white transition"
+                                >
+                                    {cat.name}
+                                </Link>
+                            ))
+                        ) : (
+                            <p>No categories found</p>
+                        )}
                     </div>
+
+
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.length > 0 ? (
@@ -52,13 +70,13 @@ const Home = () => {
                                 <Link to={`/getproduct/${product._id}`}>
                                     <div className="group" key={product._id}>
                                         <div className="relative overflow-hidden rounded-lg mb-4">
-                                            {product.tag && (
-                                                <span className="absolute top-3 left-3 bg-primary text-white text-xs px-2 py-1 rounded">
-                                                    {product.tag}
+                                            {product.stock === 0 && (
+                                                <span className="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1 rounded">
+                                                    Out of Stock
                                                 </span>
                                             )}
 
-                        
+
 
                                             <img
                                                 src={
@@ -78,9 +96,18 @@ const Home = () => {
                                                 <button className="bg-white text-gray-900 w-10 h-10 rounded-full flex items-center justify-center shadow-md mx-1 hover:bg-gray-100 transition">
                                                     <i className="ri-heart-line"></i>
                                                 </button>
-                                                <button className="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md mx-1 hover:bg-primary/90 transition">
+                                                <button
+                                                    disabled={product.stock === 0}
+                                                    className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md mx-1 transition
+                                                        ${product.stock === 0
+                                                            ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                                                            : "bg-primary text-white hover:bg-primary/90"
+                                                        }
+  `}
+                                                >
                                                     <i className="ri-shopping-bag-line"></i>
                                                 </button>
+
                                             </div>
                                         </div>
                                         <div>

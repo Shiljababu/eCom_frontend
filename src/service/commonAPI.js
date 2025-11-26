@@ -4,7 +4,6 @@ export  const axiosInstance = axios.create({
     baseURL:"http://4.213.100.69/api",
     withCredentials: true,
 })
-
 // const commonAPI = async(httpMethod, url, reqBody, reqHeader)=>{
 //     try{
 //         const reqConfig = {

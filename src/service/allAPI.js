@@ -134,3 +134,8 @@ export const editShippingStatusApi = async (id, reqBody) => {
 export const deleteOrderApi = async (id) => {
   return await axiosInstance.delete(`/order/deleteOrder/${id}`, { withCredentials: true });
 };
+
+
+export const getProductsByCategoryApi = async (id) => {
+  return await axiosInstance.get(`/category/${id}`);
+};

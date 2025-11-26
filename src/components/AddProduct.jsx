@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addProductApi } from "../service/allAPI";
+import { addProductApi, getAllCategoriesApi } from "../service/allAPI";
 
 const AddProduct = () => {
   const navigate = useNavigate();
   const [previewImages, setPreviewImages] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [productData, setProductData] = useState({
     name: "",
     description: "",
@@ -45,7 +46,22 @@ const AddProduct = () => {
       console.error("Add product error:", error);
       alert("Failed to add product. Please try again.");
     }
-  };
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await getAllCategoriesApi();
+      if (res.status === 200) {
+        setCategories(res.data.categories);
+      }
+    } catch (error) {
+      console.error("Error loading categories:", error);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-4">
@@ -55,7 +71,6 @@ const AddProduct = () => {
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
           <div>
             <label className="block text-gray-700 mb-1 font-medium">Product Name</label>
             <input
@@ -67,7 +82,6 @@ const AddProduct = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-gray-700 mb-1 font-medium">Description</label>
             <textarea
@@ -79,7 +93,6 @@ const AddProduct = () => {
             />
           </div>
 
-          {/* Size, Color, Brand */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-gray-700 mb-1 font-medium">Size</label>
@@ -110,19 +123,25 @@ const AddProduct = () => {
             </div>
           </div>
 
-          {/* Category & Price */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-gray-700 mb-1 font-medium">Category ID</label>
-              <input
-                type="text"
+              <select
                 value={productData.categoryId}
                 onChange={(e) =>
                   setProductData({ ...productData, categoryId: e.target.value })
                 }
                 className="w-full p-3 border border-gray-300 rounded-lg"
-                placeholder="Enter category ID"
-              />
+              >
+                <option value="">Select Category</option>
+
+                {categories.map((cat) => (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+
             </div>
             <div>
               <label className="block text-gray-700 mb-1 font-medium">Price</label>
@@ -138,7 +157,6 @@ const AddProduct = () => {
             </div>
           </div>
 
-          {/* Image Upload */}
           <div>
             <label className="block text-gray-700 mb-1 font-medium">Product Images</label>
             <input
@@ -161,7 +179,6 @@ const AddProduct = () => {
             </div>
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-end space-x-3 pt-4">
             <button
               type="button"
